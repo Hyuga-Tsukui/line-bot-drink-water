@@ -12,7 +12,26 @@ def lambda_handler(event, context):
         print(event)
 
         line_bot_api = LineBotApi(channel_access_token=os.environ['ACCESS_TOKEN'])
-        line_bot_api.push_message(os.environ['GROUP_ID'], TextSendMessage(text='💧水のんだ？💧'))
+        buttons_tmplate_messages = TemplateSendMessage(
+            alt_text='Buttons template',
+            template=ButtonsTemplate(
+                title='ぶぶチェック',
+                text='水のんだ？',
+                actions=[
+                    PostbackAction(
+                        label='のんだ！',
+                        display_text='のんだ！',
+                        data='status=ok'
+                    ),
+                    PostbackAction(
+                        label='のんでない！',
+                        display_text='のんでない！',
+                        data='status=ng'
+                    )
+                ]
+            )
+        )
+        line_bot_api.push_message(os.environ['GROUP_ID'], buttons_tmplate_messages)
 
         return {
             'statusCode': 200,
