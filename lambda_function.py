@@ -2,7 +2,6 @@ import json
 import datetime
 import os
 import traceback
-import boto3
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,PostbackAction,ButtonsTemplate)
 from linebot.exceptions import (LineBotApiError, InvalidSignatureError)
