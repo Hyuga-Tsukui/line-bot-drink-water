@@ -1,12 +1,30 @@
 import json
-import datetime
+import datetime 
 import os
 import traceback
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,PostbackAction,ButtonsTemplate)
 from linebot.exceptions import (LineBotApiError, InvalidSignatureError)
 
+
+def is_holiday(date):
+    holiday = [5, 6]
+    if date.weekday() in holiday:
+        return True
+    else:
+        False
+
+
+
 def lambda_handler(event, context):
+
+    today = datetime.date.today()
+
+    if is_holiday(today):
+        return {
+            'statusCode': 200,
+            'body': json.dumps('ok', ensure_ascii=False)
+        }
 
     try:
         print(event)
